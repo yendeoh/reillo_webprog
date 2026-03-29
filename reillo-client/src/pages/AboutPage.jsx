@@ -1,28 +1,33 @@
-import Button from '../src/components/Button';
+import Button from '../components/button';
 
 const AboutPage = () => {
   return (
-    <div className="flex w-full flex-col gap-6">
-      <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-          <div className="rounded-3xl border-2 border-dashed border-zinc-300 bg-zinc-100 p-6">
-            <div className="flex min-h-72 items-center justify-center rounded-[1.25rem] bg-zinc-200">
-              <div className="h-28 w-28 rounded-full border-2 border-zinc-300 bg-zinc-100" />
+    <div>
+      {/* Hero Section */}
+      <section>
+        <div className="hero-grid">
+          <div className="hero-placeholder">
+            <div className="hero-placeholder-inner">
+              <div style={{
+                width: '7rem',
+                height: '7rem',
+                borderRadius: '9999px',
+                border: '2px solid #d4d4d8',
+                background: '#f4f4f5'
+              }} />
             </div>
           </div>
 
           <div>
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
-              About Section
-            </p>
-            <h1 className="max-w-xl text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl">
+            <p className="section-label">About Section</p>
+            <h1 className="hero-title">
               A profile wireframe focused on layout, spacing, and content grouping.
             </h1>
-            <p className="mt-4 max-w-lg text-sm leading-7 text-zinc-600 sm:text-base">
+            <p className="hero-text">
               This page follows the same low-fidelity system as the homepage with a simple hero,
               overview blocks, and supporting sections for profile details.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div style={{ marginTop: '1.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
               <Button to="/" variant="primary">
                 Back Home
               </Button>
@@ -32,93 +37,83 @@ const AboutPage = () => {
         </div>
       </section>
 
-      <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-        <div className="mb-6">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
-            Profile Overview
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold text-zinc-900">Quick summary blocks</h2>
+      {/* Profile Overview */}
+      <section>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <p className="section-label">Profile Overview</p>
+          <h2 className="section-title">Quick summary blocks</h2>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
-            <p className="text-2xl font-bold text-zinc-900">05</p>
-            <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
-              Years
-            </p>
+        <div className="kpi-grid">
+          <div className="kpi-card">
+            <p className="kpi-number">05</p>
+            <p className="kpi-label">Years</p>
           </div>
-          <div className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
-            <p className="text-2xl font-bold text-zinc-900">16</p>
-            <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
-              Projects
-            </p>
+          <div className="kpi-card">
+            <p className="kpi-number">16</p>
+            <p className="kpi-label">Projects</p>
           </div>
-          <div className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
-            <p className="text-2xl font-bold text-zinc-900">09</p>
-            <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
-              Clients
-            </p>
+          <div className="kpi-card">
+            <p className="kpi-number">09</p>
+            <p className="kpi-label">Clients</p>
           </div>
-          <div className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
-            <p className="text-2xl font-bold text-zinc-900">03</p>
-            <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
-              Focus Areas
-            </p>
+          <div className="kpi-card">
+            <p className="kpi-number">03</p>
+            <p className="kpi-label">Focus Areas</p>
           </div>
         </div>
       </section>
 
-      <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
-              Section Flow
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold text-zinc-900">Stacked content wireframe</h2>
+      {/* Section Flow */}
+      <section>
+        <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: '1fr' }}>
+          <div style={{ gridColumn: '1 / -1' }}>
+            <p className="section-label">Section Flow</p>
+            <h2 className="section-title">Stacked content wireframe</h2>
 
-            <div className="mt-6 space-y-4">
-              <article className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
-                <h3 className="text-lg font-semibold text-zinc-900">Intro Block</h3>
-                <p className="mt-3 text-sm leading-6 text-zinc-600">
+            <div style={{ marginTop: '1.5rem', display: 'grid', gap: '1rem', gridTemplateColumns: '1fr' }}>
+              <article className="kpi-card">
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 600 }}>Intro Block</h3>
+                <p style={{ marginTop: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5, color: '#52525b' }}>
                   A simple opening area for biography, role, or supporting information.
                 </p>
               </article>
 
-              <article className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
-                <h3 className="text-lg font-semibold text-zinc-900">Experience Block</h3>
-                <p className="mt-3 text-sm leading-6 text-zinc-600">
+              <article className="kpi-card">
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 600 }}>Experience Block</h3>
+                <p style={{ marginTop: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5, color: '#52525b' }}>
                   Repeated section styling keeps the page readable and easy to extend.
                 </p>
               </article>
 
-              <article className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
-                <h3 className="text-lg font-semibold text-zinc-900">Details Block</h3>
-                <p className="mt-3 text-sm leading-6 text-zinc-600">
+              <article className="kpi-card">
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 600 }}>Details Block</h3>
+                <p style={{ marginTop: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5, color: '#52525b' }}>
                   Another placeholder area for skills, notes, or references.
                 </p>
               </article>
             </div>
           </div>
 
-          <div className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
-              Visual Grid
-            </p>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <div className="flex aspect-square items-center justify-center rounded-[1.25rem] bg-zinc-200">
-                <div className="h-12 w-12 border-2 border-zinc-300 bg-zinc-100" />
+          <div className="kpi-card" style={{ gridColumn: '1 / -1' }}>
+            <p className="section-label">Visual Grid</p>
+            <div style={{ marginTop: '1.25rem', display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+              <div className="feature-image">
+                <div className="feature-icon" />
               </div>
-              <div className="flex aspect-square items-center justify-center rounded-[1.25rem] bg-zinc-200">
-                <div className="h-12 w-12 border-2 border-zinc-300 bg-zinc-100" />
+              <div className="feature-image">
+                <div className="feature-icon" />
               </div>
-              <div className="flex aspect-square items-center justify-center rounded-[1.25rem] bg-zinc-200">
-                <div className="h-12 w-12 border-2 border-zinc-300 bg-zinc-100" />
+              <div className="feature-image">
+                <div className="feature-icon" />
               </div>
-              <div className="flex aspect-square items-center justify-center rounded-[1.25rem] bg-zinc-200">
-                <div className="h-12 w-12 border-2 border-zinc-300 bg-zinc-100" />
+              <div className="feature-image">
+                <div className="feature-icon" />
               </div>
             </div>
-            <Button className="mt-5">View Section</Button>
+            <div style={{ marginTop: '1.25rem' }}>
+              <Button>View Section</Button>
+            </div>
           </div>
         </div>
       </section>
