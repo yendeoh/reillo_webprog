@@ -3,8 +3,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 // HomePage Structure
 import Layout from './components/Layout';
 import ArticlePage from './pages/ArticlePage';
+import ArticleListPage from './pages/ArticleListPage';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const routes = [
   {
@@ -21,7 +23,19 @@ const routes = [
       },
       {
         path: 'articles',
+        element: <ArticleListPage />,
+      },
+      {
+        path: 'articles/:name',
         element: <ArticlePage />,
+      },
+      {
+        path: 'page-not-found',
+        element: <NotFoundPage />,
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
       },
     ],
   },

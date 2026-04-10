@@ -1,80 +1,57 @@
+import { useParams } from 'react-router-dom';
 import Button from '../components/button';
+import articles from '../assets/article-content.js';
 
-const ArticlePage = () => {
+function ArticlePage() {
+  const { name } = useParams();
+  const article = articles.find(article => article.name === name);
+
+  if (!article) {
+    return (
+      <div className="flex w-full flex-col gap-6">
+        <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:py-8 lg:px-8">
+          <div className="mx-auto max-w-3xl">
+            <h1 className="text-3xl font-bold text-zinc-900 sm:text-4xl">Article not found</h1>
+            <Button to="/articles" className="mt-6">Back to Articles</Button>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      {/* Header Section */}
-      <section>
-        <p className="section-label">Articles</p>
-        <h1 className="hero-title">Featured articles in a simple card grid</h1>
-        <p className="hero-text">
-          A clean wireframe section for article thumbnails, titles, short descriptions, and one
-          clear action per card.
-        </p>
-        <div style={{ marginTop: '1.5rem' }}>
-          <Button to="/">Back Home</Button>
+    <div className="flex w-full flex-col gap-6">
+      <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:py-8 lg:px-8">
+        <div className="mx-auto max-w-3xl">
+          <div className="mb-4">
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">{article.title}</p>
+            <h1 className="text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl">{article.title}</h1>
+          </div>
+          <p className="mt-2 text-sm text-zinc-700">{article.description}</p>
         </div>
       </section>
 
-      {/* Featured Articles */}
-      <section>
-        <div style={{ marginBottom: '1.5rem' }}>
-          <p className="section-label">Featured Articles</p>
-          <h2 className="section-title">Article card grid</h2>
+      <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:py-8 lg:px-8">
+        <div className="mx-auto max-w-3xl">
+          <div className="flex aspect-[3] items-center justify-center rounded-[1.25rem] border-2 border-zinc-900 bg-zinc-200" />
+
+          <div className="mt-8 space-y-4 text-base leading-7 text-zinc-700 whitespace-pre-wrap">
+            {article.content.map((paragraph, index) => (
+              <p key={index} className="text-base leading-7 text-zinc-700 whitespace-pre-wrap">
+                {paragraph}
+              </p>
+            ))}
+          </div>
         </div>
+      </section>
 
-        <div className="features-grid">
-          <article className="feature-card">
-            <div className="feature-image">
-              <div className="feature-icon" />
-            </div>
-            <p className="section-label" style={{ marginTop: '1rem', marginBottom: 0 }}>Article 01</p>
-            <h3>Wireframe layout basics</h3>
-            <p>A simple placeholder for a featured article with image, title, and short copy.</p>
-            <div style={{ marginTop: '1rem' }}>
-              <Button>Read More</Button>
-            </div>
-          </article>
-
-          <article className="feature-card">
-            <div className="feature-image">
-              <div className="feature-icon" />
-            </div>
-            <p className="section-label" style={{ marginTop: '1rem', marginBottom: 0 }}>Article 02</p>
-            <h3>Building clean sections</h3>
-            <p>Another card using the same layout pattern for a consistent article grid.</p>
-            <div style={{ marginTop: '1rem' }}>
-              <Button>Read More</Button>
-            </div>
-          </article>
-
-          <article className="feature-card">
-            <div className="feature-image">
-              <div className="feature-icon" />
-            </div>
-            <p className="section-label" style={{ marginTop: '1rem', marginBottom: 0 }}>Article 03</p>
-            <h3>Using cards and lists</h3>
-            <p>The same low-fidelity treatment keeps the card section easy to scan.</p>
-            <div style={{ marginTop: '1rem' }}>
-              <Button>Read More</Button>
-            </div>
-          </article>
-
-          <article className="feature-card">
-            <div className="feature-image">
-              <div className="feature-icon" />
-            </div>
-            <p className="section-label" style={{ marginTop: '1rem', marginBottom: 0 }}>Article 04</p>
-            <h3>Low-fidelity article flow</h3>
-            <p>A final article card to complete the featured grid layout.</p>
-            <div style={{ marginTop: '1rem' }}>
-              <Button>Read More</Button>
-            </div>
-          </article>
+      <section className="border-y-2 border-zinc-900 pt-6">
+        <div className="mx-auto max-w-3xl px-4 lg:px-8">
+          <Button to="/articles">Back to Articles</Button>
         </div>
       </section>
     </div>
   );
-};
+}
 
 export default ArticlePage;
