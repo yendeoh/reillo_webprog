@@ -1,80 +1,80 @@
 const articles = [
   {
-    name: "understanding-react-props-and-styling",
-    title: "Understanding React Props and Styling",
-    description: "Learn how to pass data between components and style them effectively in React.",
+    name: "chocolate-chip-cookies",
+    title: "The Art of Perfect Chocolate Chip Cookies",
+    description: "Discover the secrets to baking the ultimate chocolate chip cookie with crispy edges and chewy centers.",
     content: [
-      "Props (short for properties) allow you to pass data from a parent component to a child component. They are read-only and essential for building reusable and flexible components.",
-      "Props Example:\nfunction Welcome(props) {\n  return <h1>Hello, {props.name}!</h1>;\n}\n\n<Welcome name=\"John\" />",
-      "React supports multiple styling approaches depending on your needs. You can use inline styles for dynamic styling, CSS files for global styles, CSS Modules for scoped styles, and CSS-in-JS libraries for advanced features.",
-      "Inline Style Example:\nconst buttonStyle = { \n  backgroundColor: '#8b6f47',\n  color: '#faf8f5',\n  padding: '0.5rem 1rem'\n};\n<button style={buttonStyle}>Click me</button>",
-      "CSS Classes provide semantic meaning and better maintainability. You can dynamically apply classes based on component state.",
-      "Dynamic Classes Example:\nconst isActive = true;\nconst className = isActive ? 'button button-primary' : 'button button-secondary';\n<button className={className}>Submit</button>"
+      "Chocolate chip cookies are an all-time classic that never goes out of style. The key to perfection lies in the balance of textures and flavors.",
+      "The Foundation:\nOur chocolate chip cookies start with premium butter, brown sugar, and vanilla extract. We use a blend of light and dark chocolate chips for maximum flavor.",
+      "Texture is Everything:\nWe butter our cookies at room temperature for a light, fluffy crumb, while ensuring they develop crispy edges during baking. The secret is using both granulated and brown sugar.",
+      "Recipe Tips:\n- Use room temperature butter for creamier dough\n- Brown your butter lightly for deeper flavor\n- Chill dough for 30 minutes before baking\n- Bake at 350°F for 11-13 minutes",
+      "Quality Ingredients Matter:\nWe source Belgian chocolate and Madagascar vanilla beans to ensure every cookie delivers exceptional taste and quality.",
+      "Consistency and Care:\nEach batch is hand-prepared and baked fresh daily to guarantee the perfect cookie in every bite."
     ]
   },
   {
-    name: "react-component-lifecycle",
-    title: "React Component Lifecycle",
-    description: "Master the lifecycle methods and understand component rendering phases.",
+    name: "vegan-cookie-revolution",
+    title: "Delicious Vegan Cookie Options",
+    description: "Explore our delicious vegan cookies that prove plant-based treats can be absolutely delicious.",
     content: [
-      "React components have a lifecycle that involves three main phases: Mounting, Updating, and Unmounting.",
-      "Mounting Phase: This is when the component is being created and being inserted into the DOM. The methods called are:\n- constructor()\n- render()\n- componentDidMount()",
-      "The componentDidMount() method is called after the component is rendered. This is the perfect place to make API calls, set up timers, or update the DOM.",
-      "Example:\ncomponentDidMount() {\n  fetch('/api/data')\n    .then(res => res.json())\n    .then(data => this.setState({ data }));\n}",
-      "Updating Phase: This occurs when the component is being re-rendered due to props or state changes. Methods called are:\n- render()\n- componentDidUpdate()\n- shouldComponentUpdate()",
-      "Unmounting Phase: This is the final phase when the component is being removed from the DOM. Use componentWillUnmount() to clean up resources like timers or event listeners."
+      "Vegan baking doesn't mean compromising on taste or texture. Our vegan cookies are proof that everyone deserves a delicious treat.",
+      "Our Vegan Philosophy:\nWe use premium plant-based butter, aquafaba (chickpea water) as an egg replacer, and high-quality vegan chocolate chips.",
+      "Popular Vegan Varieties:\n- Peanut Butter Bliss: Rich peanut butter with dark chocolate chunks\n- Oatmeal Raisin: Hearty oats with plump raisins\n- Double Chocolate: Decadent cocoa with white and dark chocolate",
+      "Baking Science:\nPlant-based baking requires precise measurements and timing. We've perfected our recipes through extensive testing to achieve the perfect texture.",
+      "Certification & Quality:\nOur vegan cookies are certified vegan and made in a facility that prioritizes plant-based ingredients.",
+      "Perfect for Everyone:\nWhether you're vegan by choice or by necessity, our cookies are made with love and care for all to enjoy."
     ]
   },
   {
-    name: "react-hooks-and-state-management",
-    title: "React Hooks and State Management",
-    description: "Explore modern React with hooks and effective state management patterns.",
+    name: "gluten-free-baking",
+    title: "Gluten-Free Cookies Without Compromise",
+    description: "Indulge in our delicious gluten-free cookies that don't sacrifice flavor or texture for dietary needs.",
     content: [
-      "React Hooks are functions that let you use state and other React features in functional components. The most basic hook is useState.",
-      "useState Hook Example:\nimport { useState } from 'react';\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n  \n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(count + 1)}>Increment</button>\n    </div>\n  );\n}",
-      "The useEffect hook allows you to perform side effects in functional components. It runs after the component renders and has replaced lifecycle methods in many cases.",
-      "useEffect Example:\nuseEffect(() => {\n  document.title = `Count: ${count}`;\n  \n  return () => {\n    document.title = 'Reillo';\n  };\n}, [count]);",
-      "Custom hooks let you extract component logic into reusable functions. They are JavaScript functions whose names start with 'use'.",
-      "For complex state management, consider libraries like Redux, Context API, or Zustand to manage application-wide state efficiently."
+      "Gluten-free baking is an art form. We've spent years perfecting our recipes to create cookies that rival their traditional counterparts.",
+      "Our Gluten-Free Blend:\nWe use a carefully crafted blend of almond flour, coconut flour, and tapioca starch for the perfect structure and flavor.",
+      "Cookie Varieties:\n- Almond Flour Shortbread: Buttery and elegant\n- Coconut Macaroon: Chewy and tropical\n- Chocolate Crackle: Rich and fudgy\n- Berry Bliss: Tart and sweet",
+      "The Science of GF Baking:\nGluten provides structure, so we replace it with xanthan gum and our proprietary flour blend. The result is consistently delicious.",
+      "Certification & Safety:\nAll gluten-free cookies are prepared in a dedicated gluten-free facility to prevent cross-contamination.",
+      "Taste the Difference:\nMany customers say our gluten-free cookies are their favorites, proving that dietary restrictions shouldn't limit enjoyment."
     ]
   },
   {
-    name: "react-routing-navigation",
-    title: "React Router and Client-Side Navigation",
-    description: "Build single-page applications with client-side routing and navigation.",
+    name: "seasonal-cookie-flavors",
+    title: "Seasonal Cookie Collections",
+    description: "Celebrate every season with our rotating collection of limited-edition flavored cookies.",
     content: [
-      "React Router is a library that enables dynamic route matching, location transition handling, and location history management. It allows you to build single-page applications with navigation without page refreshes.",
-      "Basic Setup:\nimport { BrowserRouter, Routes, Route } from 'react-router-dom';\n\nfunction App() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        <Route path=\"/\" element={<Home />} />\n        <Route path=\"/about\" element={<About />} />\n      </Routes>\n    </BrowserRouter>\n  );\n}",
-      "The Link component navigates to different routes without causing a page reload. It's more efficient than using regular anchor tags.",
-      "Link Example:\nimport { Link } from 'react-router-dom';\n\n<nav>\n  <Link to=\"/\">Home</Link>\n  <Link to=\"/articles\">Articles</Link>\n  <Link to=\"/about\">About</Link>\n</nav>",
-      "Dynamic routing allows you to capture URL parameters. Use the useParams hook to retrieve these parameters in your components.",
-      "useParams Example:\nfunction ArticlePage() {\n  const { id } = useParams();\n  return <h1>Article {id}</h1>;\n}\n\n<Route path=\"/articles/:id\" element={<ArticlePage />} />"
+      "Our seasonal cookies bring the flavors of each season to your table. From spring blooms to winter spices, there's always something new to enjoy.",
+      "Spring Collection:\n- Strawberry Shortcake Cookies\n- Lemon Poppy Seed Cookies\n- Fresh Mint Chocolate Chip\n- Lavender Honey Cookies",
+      "Summer Favorites:\n- Coconut Paradise\n- Raspberry Cheesecake\n- Peach Iced Tea\n- Blueberry Lemonade",
+      "Autumn Specialties:\n- Pumpkin Spice Delight\n- Apple Cinnamon Crunch\n- Caramel Apple\n- Brown Butter Pecan",
+      "Winter Classics:\n- Gingerbread Spice\n- Peppermint Mocha\n- Eggnog Cookies\n- White Christmas Cookies",
+      "Pre-Order Your Favorites:\nSeasonal cookies are available for a limited time. Pre-order yours today to ensure you don't miss out on your favorite flavors!"
     ]
   },
   {
-    name: "best-practices-react-development",
-    title: "Best Practices in React Development",
-    description: "Learn industry-standard practices and patterns for writing maintainable React code.",
+    name: "cookie-pairing-guide",
+    title: "The Perfect Cookie & Beverage Pairings",
+    description: "Learn which beverages pair best with different cookies for the ultimate tasting experience.",
     content: [
-      "Component Composition: Break your UI into small, focused components. Each component should have a single responsibility, making them easier to test and reuse.",
-      "Keys in Lists: Always provide unique keys when rendering lists. Keys help React identify which items have changed, improving performance.\n\nGood:\n<ul>\n  {items.map(item => <li key={item.id}>{item.name}</li>)}\n</ul>",
-      "Prop Validation: Use PropTypes or TypeScript to validate component props. This helps catch bugs early and serves as documentation.",
-      "PropTypes Example:\nimport PropTypes from 'prop-types';\n\nButton.propTypes = {\n  label: PropTypes.string.isRequired,\n  onClick: PropTypes.func.isRequired,\n  disabled: PropTypes.bool\n};",
-      "Performance Optimization: Use React.memo for components that don't need frequent re-renders, useMemo for expensive computations, and useCallback for memoized callback functions.",
-      "Code Splitting: Use dynamic imports and React.lazy() to split your code into smaller chunks that are loaded on demand, improving initial page load time."
+      "The perfect cookie deserves the perfect pairing. Discover how to enhance your cookie experience with carefully selected beverages.",
+      "Classic Combinations:\n- Chocolate Chip with Cold Milk: A timeless pairing that never fails\n- Oatmeal Raisin with Hot Tea: Warm and comforting\n- Lemon with Iced Water or Sparkling Water: Refreshingly light",
+      "Coffee Pairings:\n- Dark Chocolate Cookies with Espresso\n- Cinnamon Cookies with Cappuccino\n- Hazelnut with Flat White\n- Vanilla Bean with Americano",
+      "Tea Time Treats:\n- Shortbread with Earl Grey\n- Honey Cookies with Chamomile\n- Matcha Cookies with Green Tea\n- Berry Cookies with Fruit Tea",
+      "Wine & Dessert Wines:\n- Belgian Chocolate Cookies with Red Wine\n- Honey Cinnamon with Dessert Wine\n- Orange Blossom with Prosecco",
+      "The Tasting Experience:\nTake time to slow down and savor the combination of flavors. The magic happens when you find your perfect match!"
     ]
   },
   {
-    name: "styling-with-css-modules",
-    title: "Advanced Styling with CSS Modules",
-    description: "Create scoped, maintainable styles using CSS Modules in React applications.",
+    name: "custom-cookie-gifts",
+    title: "Personalized Cookie Gifts for Every Occasion",
+    description: "Make any celebration special with custom-designed cookies perfect for gifts and memorable moments.",
     content: [
-      "CSS Modules are CSS files where class names are scoped locally by default. This prevents naming conflicts and makes styles more maintainable.",
-      "CSS Modules Example:\n/* Button.module.css */\n.primary {\n  background-color: #8b6f47;\n  color: #faf8f5;\n  padding: 0.5rem 1rem;\n}",
-      "To use CSS Modules in React, import the stylesheet as a JavaScript object and apply classes using the imported object.",
-      "Usage Example:\nimport styles from './Button.module.css';\n\nfunction Button() {\n  return <button className={styles.primary}>Click me</button>;\n}",
-      "One of the main advantages of CSS Modules is that class names are scoped to the component, eliminating naming conflicts in larger projects.",
-      "You can compose multiple classes and use conditional logic to apply styles dynamically based on component props and state."
+      "There's no gift more personal and delicious than custom cookies. We create beautiful, edible works of art for every occasion.",
+      "Our Custom Services:\n- Wedding Favors: Elegant designs for your special day\n- Corporate Gifts: Professional branding and packaging\n- Birthday Celebrations: Personalized shapes and messages\n- Baby Showers: Adorable designs and pastels\n- Holiday Gifts: Seasonal designs and festive packaging",
+      "Design Options:\nChoose from pre-designed templates or work with our team to create something uniquely yours. We hand-decorate each cookie with premium icing.",
+      "Ordering Process:\n1. Select your cookie flavor\n2. Choose your design or theme\n3. Add personalization\n4. Select packaging options\n5. Place order (minimum 12 cookies)",
+      "Packaging & Presentation:\nWe offer beautiful gift boxes, custom ribbons, and personalized tags to make your gift extra special.",
+      "Perfect for Everyone:\nFrom corporate clients to wedding planners, our custom cookies create lasting impressions and unforgettable memories."
     ]
   }
 ];

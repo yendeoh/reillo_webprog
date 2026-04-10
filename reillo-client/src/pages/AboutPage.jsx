@@ -1,4 +1,5 @@
 import Button from '../components/button';
+import aboutMeImg from '../assets/aboutme.jpg';
 
 const AboutPage = () => {
   return (
@@ -8,30 +9,19 @@ const AboutPage = () => {
         <div className="hero-grid">
           <div className="hero-placeholder">
             <div className="hero-placeholder-inner">
-              <div style={{
-                width: '7rem',
-                height: '7rem',
-                borderRadius: '9999px',
-                border: '2px solid #d4d4d8',
-                background: '#f4f4f5'
-              }} />
+              <img src={aboutMeImg} alt="About the Creator" style={{ width: '50%', height: '50%', objectFit: 'flex', borderRadius: '9999px' }} />
             </div>
           </div>
 
           <div>
-            <p className="section-label">About Section</p>
+            <p className="section-label">About the Creator</p>
             <h1 className="hero-title">
-              A profile wireframe focused on layout, spacing, and content grouping.
+              Rhoedney Isid S. Reillo
             </h1>
             <p className="hero-text">
-              This page follows the same low-fidelity system as the homepage with a simple hero,
-              overview blocks, and supporting sections for profile details.
+              With a passion for artisanal baking and a commitment to quality ingredients, I've dedicated my career to creating the perfect cookie. Every batch is made with love and care to bring you the most delicious treats.
             </p>
             <div style={{ marginTop: '1.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
-              <Button to="/" variant="primary">
-                Back Home
-              </Button>
-              <Button to="/articles">Open Articles</Button>
             </div>
           </div>
         </div>
@@ -40,26 +30,26 @@ const AboutPage = () => {
       {/* Profile Overview */}
       <section>
         <div style={{ marginBottom: '1.5rem' }}>
-          <p className="section-label">Profile Overview</p>
-          <h2 className="section-title">Quick summary blocks</h2>
+          <p className="section-label">My Background</p>
+          <h2 className="section-title">Years of Baking Excellence</h2>
         </div>
 
         <div className="kpi-grid">
           <div className="kpi-card">
-            <p className="kpi-number">05</p>
-            <p className="kpi-label">Years</p>
+            <p className="kpi-number">12</p>
+            <p className="kpi-label">Years Baking</p>
           </div>
           <div className="kpi-card">
-            <p className="kpi-number">16</p>
-            <p className="kpi-label">Projects</p>
+            <p className="kpi-number">50+</p>
+            <p className="kpi-label">Recipes</p>
           </div>
           <div className="kpi-card">
-            <p className="kpi-number">09</p>
-            <p className="kpi-label">Clients</p>
+            <p className="kpi-number">100K+</p>
+            <p className="kpi-label">Customers</p>
           </div>
           <div className="kpi-card">
-            <p className="kpi-number">03</p>
-            <p className="kpi-label">Focus Areas</p>
+            <p className="kpi-number">15</p>
+            <p className="kpi-label">Awards</p>
           </div>
         </div>
       </section>
@@ -68,51 +58,55 @@ const AboutPage = () => {
       <section>
         <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: '1fr' }}>
           <div style={{ gridColumn: '1 / -1' }}>
-            <p className="section-label">Section Flow</p>
-            <h2 className="section-title">Stacked content wireframe</h2>
+            <p className="section-label">My Journey</p>
+            <h2 className="section-title">From Home Baker to Cookie Shop Owner</h2>
 
             <div style={{ marginTop: '1.5rem', display: 'grid', gap: '1rem', gridTemplateColumns: '1fr' }}>
               <article className="kpi-card">
-                <h3 style={{ fontSize: '1.125rem', fontWeight: 600 }}>Intro Block</h3>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 600 }}>The Beginning</h3>
                 <p style={{ marginTop: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5, color: '#52525b' }}>
-                  A simple opening area for biography, role, or supporting information.
+                  Everything started in my grandmother's kitchen with her secret recipes. Her passion for baking inspired me to perfect the craft and share these delights with the world.
                 </p>
               </article>
 
               <article className="kpi-card">
-                <h3 style={{ fontSize: '1.125rem', fontWeight: 600 }}>Experience Block</h3>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 600 }}>My Expertise</h3>
                 <p style={{ marginTop: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5, color: '#52525b' }}>
-                  Repeated section styling keeps the page readable and easy to extend.
+                  Specializing in gluten-free, vegan, and classic varieties, I ensure every cookie is made with the finest organic ingredients and baked fresh daily.
                 </p>
               </article>
 
               <article className="kpi-card">
-                <h3 style={{ fontSize: '1.125rem', fontWeight: 600 }}>Details Block</h3>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 600 }}>Our Promise</h3>
                 <p style={{ marginTop: '0.75rem', fontSize: '0.875rem', lineHeight: 1.5, color: '#52525b' }}>
-                  Another placeholder area for skills, notes, or references.
+                  Quality, freshness, and customer satisfaction are at the heart of everything we do. Each bite is a testament to our commitment to excellence.
                 </p>
               </article>
             </div>
           </div>
 
           <div className="kpi-card" style={{ gridColumn: '1 / -1' }}>
-            <p className="section-label">Visual Grid</p>
+            <p className="section-label">Awards & Recognition</p>
             <div style={{ marginTop: '1.25rem', display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-              <div className="feature-image">
-                <div className="feature-icon" />
+              <div style={{ textAlign: 'center', padding: '1rem' }}>
+                <p style={{ fontWeight: 600 }}>Best Chocolate Chip</p>
+                <p style={{ fontSize: '0.875rem', color: '#52525b' }}>2023</p>
               </div>
-              <div className="feature-image">
-                <div className="feature-icon" />
+              <div style={{ textAlign: 'center', padding: '1rem' }}>
+                <p style={{ fontWeight: 600 }}>Most Creative Recipe</p>
+                <p style={{ fontSize: '0.875rem', color: '#52525b' }}>2022</p>
               </div>
-              <div className="feature-image">
-                <div className="feature-icon" />
+              <div style={{ textAlign: 'center', padding: '1rem' }}>
+                <p style={{ fontWeight: 600 }}>Customer Favorite</p>
+                <p style={{ fontSize: '0.875rem', color: '#52525b' }}>2023</p>
               </div>
-              <div className="feature-image">
-                <div className="feature-icon" />
+              <div style={{ textAlign: 'center', padding: '1rem' }}>
+                <p style={{ fontWeight: 600 }}>Organic Excellence</p>
+                <p style={{ fontSize: '0.875rem', color: '#52525b' }}>2024</p>
               </div>
             </div>
             <div style={{ marginTop: '1.25rem' }}>
-              <Button>View Section</Button>
+              <Button>Get In Touch</Button>
             </div>
           </div>
         </div>
