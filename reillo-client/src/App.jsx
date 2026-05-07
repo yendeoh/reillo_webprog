@@ -8,10 +8,15 @@ import HomePage from './pages/LandingPages/HomePage';
 import AboutPage from './pages/LandingPages/AboutPage';
 import NotFoundPage from './pages/NotFoundPage';
 
+import AuthLayout from './Layouts/AuthLayout';
+import SignInPage from './pages/AuthPages/SignInPage';
+import SignUpPage from './pages/AuthPages/SignUpPage';
+
 const routes = [
   {
     path: '/',
     element: <Layout />,
+    errorelement: <NotFoundPage />,
     children: [
       {
         path: '',
@@ -33,9 +38,20 @@ const routes = [
         path: 'page-not-found',
         element: <NotFoundPage />,
       },
+    ],
+  },
+    {
+    path: '/',
+    element: <AuthLayout />,
+    errorelement: <NotFoundPage />,
+    children: [
       {
-        path: '*',
-        element: <NotFoundPage />,
+        path: 'signin',
+        element: <SignInPage />,
+      },
+      {
+        path: 'signup',
+        element: <SignUpPage />,
       },
     ],
   },
