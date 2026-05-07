@@ -1,80 +1,83 @@
 import { Link } from 'react-router-dom';
-import Button from '../../components/Button';
+import Button from '../../components/button';
 
-const inputClasses = 
-  'mt-2 w-full rounded-xl border border-zinc-300 bg-zinc-100 px-4 py-3 text-sm text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-zinc-900 focus:bg-zinc-50';
-
-const actionButtonClassName = 'w-full rounded-xl py-3 text-[11px] tracking-[0.2em]';
+const inputClasses = 'auth-input';
+const actionButtonClassName = 'auth-action-btn';
 
 const SignInPage = () => {
   return (
-    <>
-      <h1 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">Log In</h1>
-      <p className="mt-3 text-sm leading-6 text-zinc-600">
-        Access your account using the same monochrome wireframe language used across the site.
-      </p>
+    <div className="auth-page">
+      <div className="auth-page-inner">
+        <div className="auth-card">
+          <div className="auth-header">
+            <span className="auth-label">Welcome back</span>
+            <h1 className="auth-heading">Sign in to your account</h1>
+            <p className="auth-text">
+              Use your email and password to securely access your dashboard and saved content.
+            </p>
+          </div>
 
-      <form className="mt-8 space-y-5">
-        <div>
-          <label htmlFor="signin-email" className="text-sm font-medium text-zinc-700">
-            Email Address
-          </label>
-          <input
-            id="signin-email"
-            type="email"
-            placeholder="Placeholder"
-            autoComplete="email"
-            className={inputClasses}
-          />
+          <form className="auth-form">
+            <div className="auth-group">
+              <label htmlFor="signin-email">Email Address</label>
+              <input
+                id="signin-email"
+                type="email"
+                placeholder="you@example.com"
+                autoComplete="email"
+                className={inputClasses}
+              />
+            </div>
+
+            <div className="auth-group">
+              <label htmlFor="signin-password">Password</label>
+              <input
+                id="signin-password"
+                type="password"
+                placeholder="Enter your password"
+                autoComplete="current-password"
+                className={inputClasses}
+              />
+              <p className="auth-caption">
+                Use a strong password with letters, numbers, and symbols.
+              </p>
+            </div>
+
+            <div className="auth-row auth-compact-row">
+              <label className="auth-checkbox-label">
+                <input type="checkbox" className="auth-checkbox" />
+                Remember me
+              </label>
+              <button type="button" className="auth-forgot-button">
+                Forgot password?
+              </button>
+            </div>
+
+            <div className="auth-actions">
+              <Button type="submit" variant="primary" className={actionButtonClassName}>
+                Log In
+              </Button>
+
+              <div className="auth-actions-two">
+                <Button type="button" variant="secondary" className={`${actionButtonClassName} auth-social-btn`}>
+                  Log in with Google
+                </Button>
+                <Button type="button" variant="secondary" className={`${actionButtonClassName} auth-social-btn`}>
+                  Log in with Apple
+                </Button>
+              </div>
+            </div>
+          </form>
+
+          <div className="auth-bottom">
+            No account yet?{' '}
+            <Link to="/signup" className="auth-link">
+              Create one here
+            </Link>
+          </div>
         </div>
-
-        <div>
-          <label htmlFor="signin-password" className="text-sm font-medium text-zinc-700">
-            Password
-          </label>
-          <input
-            id="signin-password"
-            type="password"
-            placeholder="Placeholder"
-            autoComplete="current-password"
-            className={inputClasses}
-          />
-          <p className="mt-2 text-xs leading-5 text-zinc-500">
-            It must be a combination of minimum 8 letters, numbers, and symbols.
-          </p>
-        </div>
-
-        <div className="flex items-center justify-between gap-4 text-sm">
-          <label className="flex items-center gap-2 text-zinc-600">
-            <input type="checkbox" className="h-4 w-4 rounded border-zinc-300 accent-zinc-900" />
-            <span>Remember me</span>
-          </label>
-          <button type="button" className="font-medium text-zinc-700 transition hover:text-zinc-900">
-            Forgot Password?
-          </button>
-        </div>
-
-        <Button type="submit" variant="primary" className={actionButtonClassName}>
-          LOG IN
-        </Button>
-
-        <div className="grid gap-3 pt-2 sm:grid-cols-2">
-          <Button type="button" variant="secondary" className={actionButtonClassName}>
-            LOG IN WITH GOOGLE
-          </Button>
-          <Button type="button" variant="secondary" className={actionButtonClassName}>
-            LOG IN WITH APPLE
-          </Button>
-        </div>
-      </form>
-
-      <div className="mt-8 border-t border-zinc-200 pt-6 text-sm text-zinc-600">
-        No account yet?{' '}
-        <Link to="/auth/signup" className="font-semibold text-zinc-900 transition hover:text-zinc-600">
-          Sign Up
-        </Link>
       </div>
-    </>
+    </div>
   );
 };
 

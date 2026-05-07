@@ -19,6 +19,14 @@ const NavBar = () => {
             Articles
           </Link>
         </div>
+        <div className="navbar-auth">
+          <Link to="/signin" className="navbar-auth-link navbar-auth-signin">
+            Sign In
+          </Link>
+          <Link to="/signup" className="navbar-auth-link navbar-auth-signup">
+            Sign Up
+          </Link>
+        </div>
       </div>
     </nav>
   );
