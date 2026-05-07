@@ -89,6 +89,17 @@ const UsersPage = () => {
   const [form, setForm] = useState(blankForm);
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredUsers = users.filter((user) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      user.firstName.toLowerCase().includes(query) ||
+      user.lastName.toLowerCase().includes(query) ||
+      user.email.toLowerCase().includes(query) ||
+      user.username.toLowerCase().includes(query)
+    );
+  });
 
   const resetForm = () => {
     setForm(blankForm);
@@ -241,21 +252,44 @@ const UsersPage = () => {
         </Button>
       </Box>
 
+      {/* Search Bar */}
+      <Box sx={{ mb: 3 }}>
+        <TextField
+          fullWidth
+          placeholder="Search by first name, last name, email, or username..."
+          variant="outlined"
+          size="small"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  🔍
+                </InputAdornment>
+              ),
+            },
+          }}
+        />
+      </Box>
+
       {seed.error && <Alert severity="error" sx={{ mb: 2 }}>{seed.error}</Alert>}
 
       <Paper sx={{ p: { xs: 1.5, sm: 2 }, minWidth: 0, overflow: 'hidden' }}>
-        {users.length ? (
+        {filteredUsers.length ? (
           <Box sx={{ height: { xs: 400, sm: 520 }, width: '100%' }}>
             <DataGrid
-              rows={users}
+              rows={filteredUsers}
               columns={columns}
               disableRowSelectionOnClick
               pageSizeOptions={[5, 10]}
               initialState={{ pagination: { paginationModel: { pageSize: 5, page: 0 } } }}
             />
           </Box>
-        ) : (
+        ) : users.length === 0 ? (
           <Alert severity="info">No users found. Use Add user to create your first record.</Alert>
+        ) : (
+          <Alert severity="info">No users match your search query. Try different keywords.</Alert>
         )}
       </Paper>
 
