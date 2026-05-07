@@ -14,7 +14,8 @@ import SignUpPage from './pages/AuthPages/SignUpPage';
 
 import DashLayout from './Layouts/DashLayout';
 import DashboardPage from './pages/DashboardPages/DashboardPage';
-
+import ReportsPage from './pages/DashboardPages/ReportsPage';
+import UsersPage from './pages/DashboardPages/UsersPage';
 const routes = [
   {
     path: '/',
@@ -64,9 +65,17 @@ const routes = [
     errorelement: <NotFoundPage />,
     children: [
       {
-        path: 'dashboard',
+        index: true,
         element: <DashboardPage />,
       },
+            {
+        path: 'reportspage',
+        element: <ReportsPage />,
+      },
+            {
+        path: 'userspage',
+        element: <UsersPage />,
+      }
     ],
   },
 ];
