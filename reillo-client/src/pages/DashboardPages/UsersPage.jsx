@@ -244,38 +244,48 @@ const UsersPage = () => {
   ];
 
   return (
-    <Box sx={{ width: '100%', minWidth: 0 }}>
-      <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
-        <Typography variant="h4">Users</Typography>
-        <Button variant="contained" onClick={() => openModal()} sx={{ width: { xs: '100%', sm: 'auto' } }}>
-          Add User
-        </Button>
-      </Box>
+    <Box sx={{ background: '#faf8f5', minHeight: '100vh', py: 4, px: { xs: 1, sm: 2, md: 3 } }}>
+      <Box sx={{ maxWidth: '90rem', mx: 'auto', width: '100%', minWidth: 0 }}>
+        <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+          <Typography variant="h4" sx={{ color: '#3f2211', fontWeight: 700 }}>Users</Typography>
+          <Button variant="contained" onClick={() => openModal()} sx={{ background: '#8b6f47', color: '#faf8f5', '&:hover': { background: '#6b4423' }, width: { xs: '100%', sm: 'auto' } }}>
+            Add User
+          </Button>
+        </Box>
 
-      {/* Search Bar */}
-      <Box sx={{ mb: 3 }}>
-        <TextField
-          fullWidth
-          placeholder="Search by first name, last name, email, or username..."
-          variant="outlined"
-          size="small"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  🔍
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
-      </Box>
+        {/* Search Bar */}
+        <Box sx={{ mb: 3 }}>
+          <TextField
+            fullWidth
+            placeholder="Search by first name, last name, email, or username..."
+            variant="outlined"
+            size="small"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            sx={{
+              background: '#f0e6d8',
+              borderRadius: '0.75rem',
+              '& .MuiOutlinedInput-root': {
+                color: '#3f2211',
+                '& fieldset': { borderColor: '#f0e6d8' },
+                '&:hover fieldset': { borderColor: '#8b6f47' },
+              }
+            }}
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    🔍
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+        </Box>
 
-      {seed.error && <Alert severity="error" sx={{ mb: 2 }}>{seed.error}</Alert>}
+        {seed.error && <Alert severity="error" sx={{ mb: 2 }}>{seed.error}</Alert>}
 
-      <Paper sx={{ p: { xs: 1.5, sm: 2 }, minWidth: 0, overflow: 'hidden' }}>
+        <Paper sx={{ p: { xs: 1.5, sm: 2 }, minWidth: 0, overflow: 'hidden', background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none' }}>
         {filteredUsers.length ? (
           <Box sx={{ height: { xs: 400, sm: 520 }, width: '100%' }}>
             <DataGrid
@@ -291,7 +301,7 @@ const UsersPage = () => {
         ) : (
           <Alert severity="info">No users match your search query. Try different keywords.</Alert>
         )}
-      </Paper>
+        </Paper>
 
       <Dialog open={modal.open} onClose={closeModal} fullWidth fullScreen={isMobile} maxWidth="md">
         <Box component="form" onSubmit={handleSubmit}>
@@ -347,6 +357,7 @@ const UsersPage = () => {
           </DialogActions>
         </Box>
       </Dialog>
+    </Box>
     </Box>
   );
 };

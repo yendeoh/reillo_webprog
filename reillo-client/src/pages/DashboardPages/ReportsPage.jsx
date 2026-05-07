@@ -132,26 +132,27 @@ const ReportsPage = () => {
   };
 
   return (
-    <Box sx={{ p: 4 }}>
-      {/* Header Section */}
-      <Stack
-        direction={{ xs: "column", md: "row" }}
-        justifyContent="space-between"
-        alignItems={{ xs: "flex-start", md: "center" }}
-        spacing={2}
-        sx={{ mb: 4 }}
-      >
-        <Box>
-          <Typography variant="h4" gutterBottom>Reports</Typography>
-          <Typography variant="body1" color="text.secondary">
-            Report analytics overview showing generated reports, category breakdown, and current completion performance.
-          </Typography>
-        </Box>
+    <Box sx={{ background: '#faf8f5', minHeight: '100vh', py: 4, px: { xs: 1, sm: 2, md: 3 } }}>
+      <Box sx={{ maxWidth: '90rem', mx: 'auto' }}>
+        {/* Header Section */}
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          justifyContent="space-between"
+          alignItems={{ xs: "flex-start", md: "center" }}
+          spacing={2}
+          sx={{ mb: 4 }}
+        >
+          <Box>
+            <Typography variant="h4" gutterBottom sx={{ color: '#3f2211', fontWeight: 700 }}>Reports</Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ color: '#52525b' }}>
+              Report analytics overview showing generated reports, category breakdown, and current completion performance.
+            </Typography>
+          </Box>
 
         <Stack direction="row" spacing={1.5} flexWrap="wrap" useFlexGap>
-          <Button variant="contained">Generate</Button>
-          <Button variant="outlined" onClick={handlePrint}>Export</Button>
-          <Button variant="outlined">Filter</Button>
+          <Button variant="contained" sx={{ background: '#8b6f47', color: '#faf8f5', '&:hover': { background: '#6b4423' } }}>Generate</Button>
+          <Button variant="outlined" onClick={handlePrint} sx={{ color: '#8b6f47', borderColor: '#8b6f47', '&:hover': { borderColor: '#6b4423', color: '#6b4423' } }}>Export</Button>
+          <Button variant="outlined" sx={{ color: '#8b6f47', borderColor: '#8b6f47', '&:hover': { borderColor: '#6b4423', color: '#6b4423' } }}>Filter</Button>
         </Stack>
       </Stack>
 
@@ -159,10 +160,10 @@ const ReportsPage = () => {
       <Stack ref={printRef} spacing={3}>
         
         {/* Bar Chart Card */}
-        <Card>
+        <Card sx={{ background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none' }}>
           <CardContent>
-            <Typography variant="h6" gutterBottom>Monthly Report Output</Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+            <Typography variant="h6" gutterBottom sx={{ color: '#3f2211', fontWeight: 600 }}>Monthly Report Output</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ color: '#52525b', mb: 3 }}>
               This chart compares how many reports were generated and how many were completed across the last four months.
             </Typography>
             <BarChart
@@ -182,10 +183,10 @@ const ReportsPage = () => {
 
         {/* Pie Chart and Gauge Grid */}
         <Stack direction={{ xs: "column", lg: "row" }} spacing={3}>
-          <Card sx={{ flex: 1 }}>
+          <Card sx={{ background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none', flex: 1 }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom>Report Category Share</Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+              <Typography variant="h6" gutterBottom sx={{ color: '#3f2211', fontWeight: 600 }}>Report Category Share</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ color: '#52525b', mb: 3 }}>
                 This chart shows the distribution of report requests by category.
               </Typography>
               <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -205,10 +206,10 @@ const ReportsPage = () => {
             </CardContent>
           </Card>
 
-          <Card sx={{ flex: 1 }}>
+          <Card sx={{ background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none', flex: 1 }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom>Completion Rate</Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+              <Typography variant="h6" gutterBottom sx={{ color: '#3f2211', fontWeight: 600 }}>Completion Rate</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ color: '#52525b', mb: 3 }}>
                 The gauge highlights the current percentage of reports completed on time.
               </Typography>
               <Box sx={{
@@ -224,7 +225,7 @@ const ReportsPage = () => {
         </Stack>
 
         {/* DataGrid Card */}
-        <Card>
+        <Card sx={{ background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none' }}>
           <CardContent>
             <DataGrid
               rows={rows}
@@ -242,6 +243,7 @@ const ReportsPage = () => {
           </CardContent>
         </Card>
       </Stack>
+    </Box>
     </Box>
   );
 };

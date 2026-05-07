@@ -86,6 +86,10 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  backgroundColor: '#faf8f5',
+  color: '#3f2211',
+  borderBottom: '1px solid #f0e6d8',
+  boxShadow: 'none',
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
@@ -103,6 +107,11 @@ const Drawer = styled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
+  "& .MuiDrawer-paper": {
+    backgroundColor: '#f0e6d8',
+    borderRight: '1px solid #e8dcc8',
+    color: '#3f2211',
+  },
   ...(open && {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme),
@@ -175,7 +184,7 @@ const DashLayout = () => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", backgroundColor: '#faf8f5', minHeight: '100vh' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -184,7 +193,7 @@ const DashLayout = () => {
             aria-label="open drawer"
             onClick={open ? handleDrawerClose : handleDrawerOpen}
             edge="start"
-            sx={{ marginRight: 5 }}
+            sx={{ marginRight: 5, color: '#3f2211' }}
           >
             {open ? <MenuOpenIcon /> : <MenuIcon />}
           </IconButton>
@@ -192,7 +201,7 @@ const DashLayout = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1 }}
+            sx={{ flexGrow: 1, color: '#3f2211', fontWeight: 700 }}
           >
             {pageTitle}
           </Typography>
@@ -205,14 +214,14 @@ const DashLayout = () => {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-          <Button color="inherit" variant="outlined" onClick={handleLogout}>
+          <Button color="inherit" variant="outlined" onClick={handleLogout} sx={{ color: '#8b6f47', borderColor: '#8b6f47', '&:hover': { borderColor: '#6b4423', color: '#6b4423' } }}>
             Logout
           </Button>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} sx={{ color: '#3f2211' }}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
             ) : (
@@ -232,6 +241,14 @@ const DashLayout = () => {
                   minHeight: 48,
                   px: 2.5,
                   justifyContent: open ? "initial" : "center",
+                  color: '#3f2211',
+                  '&.Mui-selected': {
+                    backgroundColor: '#e8dcc8',
+                    color: '#3f2211',
+                  },
+                  '&:hover': {
+                    backgroundColor: '#e8dcc8',
+                  }
                 }}
               >
                 <ListItemIcon
@@ -239,20 +256,21 @@ const DashLayout = () => {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
+                    color: '#3f2211',
                   }}
                 >
                   <Icon />
                 </ListItemIcon>
                 <ListItemText
                   primary={label}
-                  sx={{ opacity: open ? 1 : 0 }}
+                  sx={{ opacity: open ? 1 : 0, color: '#3f2211' }}
                 />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, backgroundColor: '#faf8f5' }}>
         <DrawerHeader />
         <Outlet />
       </Box>

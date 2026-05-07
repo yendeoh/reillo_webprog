@@ -57,105 +57,134 @@ function DashboardPage() {
   const location = useLocation();
 
   return (
-    <>
-      <Typography variant="h4" gutterBottom>
-        Dashboard
-      </Typography>
+    <Box sx={{ background: '#faf8f5', minHeight: '100vh', py: 4, px: { xs: 1, sm: 2, md: 3 } }}>
+      <Box sx={{ maxWidth: '90rem', mx: 'auto' }}>
+        <Typography variant="h4" gutterBottom sx={{ color: '#3f2211', fontWeight: 700, mb: 3 }}>
+          Dashboard
+        </Typography>
 
-      {/* Summary Section */}
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mb: 4 }} display="flex">
-        <Card>
+        {/* Summary Section */}
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mb: 4 }} display="flex">
+          <Card sx={{ background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none' }}>
+            <CardContent>
+              <Typography variant="h6" sx={{ color: '#8b6f47', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', mb: 1 }}>Total Users</Typography>
+              <Typography variant="h4" sx={{ color: '#3f2211', fontWeight: 700 }}>{rows.length}</Typography>
+            </CardContent>
+          </Card>
+          <Card sx={{ background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none' }}>
+            <CardContent>
+              <Typography variant="h6" sx={{ color: '#8b6f47', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', mb: 1 }}>Average Age</Typography>
+              <Typography variant="h4" sx={{ color: '#3f2211', fontWeight: 700 }}>
+                {(
+                  rows.reduce((sum, row) => sum + (row.age || 0), 0) /
+                  rows.filter((row) => row.age !== null).length
+                ).toFixed(1)}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Stack>
+
+        {/* Gauges */}
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} sx={{ mb: 4 }}>
+          <Card sx={{ background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none', flex: 1 }}>
+            <CardContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <Gauge width={100} height={100} value={50} />
+            </CardContent>
+          </Card>
+          <Card sx={{ background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none', flex: 1 }}>
+            <CardContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <Gauge width={100} height={100} value={50} valueMin={0} valueMax={100} />
+            </CardContent>
+          </Card>
+        </Stack>
+
+        {/* Charts */}
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} sx={{ mb: 4 }}>
+          <Card sx={{ background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none', flex: 1 }}>
+            <CardContent>
+              <Typography variant="h6" sx={{ color: '#3f2211', fontWeight: 600, mb: 2 }}>Quarterly Sales</Typography>
+              <BarChart
+                series={[
+                  { data: [35, 44, 24, 34], label: 'Series 1' },
+                  { data: [51, 6, 49, 30], label: 'Series 2' },
+                ]}
+                height={290}
+                xAxis={[{ data: ['Q1', 'Q2', 'Q3', 'Q4'], scaleType: 'band', label: 'Quarters' }]}
+              />
+            </CardContent>
+          </Card>
+          <Card sx={{ background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none', flex: 1 }}>
+            <CardContent>
+              <Typography variant="h6" sx={{ color: '#3f2211', fontWeight: 600, mb: 2 }}>Data Distribution</Typography>
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <PieChart
+                  series={[
+                    {
+                      data: [
+                        { id: 0, value: 10, label: 'Series A' },
+                        { id: 1, value: 15, label: 'Series B' },
+                        { id: 2, value: 20, label: 'Series C' },
+                      ],
+                    },
+                  ]}
+                  width={280}
+                  height={200}
+                />
+              </Box>
+            </CardContent>
+          </Card>
+        </Stack>
+
+        {/* DataGrid */}
+        <Card sx={{ background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none', mb: 3 }}>
           <CardContent>
-            <Typography variant="h6">Total Users</Typography>
-            <Typography variant="h4">{rows.length}</Typography>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent>
-            <Typography variant="h6">Average Age</Typography>
-            <Typography variant="h4">
-              {(
-                rows.reduce((sum, row) => sum + (row.age || 0), 0) /
-                rows.filter((row) => row.age !== null).length
-              ).toFixed(1)}
+            <Typography variant="h5" gutterBottom sx={{ color: '#3f2211', fontWeight: 600 }}>
+              Users Overview
             </Typography>
+            <Box sx={{ height: 400, width: '100%' }}>
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                experimentalFeatures={{ newEditingApi: true }}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 5,
+                    },
+                  },
+                }}
+                pageSizeOptions={[5]}
+                checkboxSelection
+                disableRowSelectionOnClick
+              />
+            </Box>
           </CardContent>
         </Card>
-      </Stack>
 
-      {/* Gauges */}
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} sx={{ mb: 4 }}>
-        <Gauge width={100} height={100} value={50} />
-        <Gauge width={100} height={100} value={50} valueMin={0} valueMax={100} />
-      </Stack>
-
-      {/* Charts */}
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} sx={{ mb: 4 }}>
-        <BarChart
-          series={[
-            { data: [35, 44, 24, 34], label: 'Series 1' },
-            { data: [51, 6, 49, 30], label: 'Series 2' },
-          ]}
-          height={290}
-          xAxis={[{ data: ['Q1', 'Q2', 'Q3', 'Q4'], scaleType: 'band', label: 'Quarters' }]}
-          title="Quarterly Sales"
-        />
-        <PieChart
-          series={[
-            {
-              data: [
-                { id: 0, value: 10, label: 'Series A' },
-                { id: 1, value: 15, label: 'Series B' },
-                { id: 2, value: 20, label: 'Series C' },
-              ],
-            },
-          ]}
-          width={400}
-          height={200}
-        />
-      </Stack>
-
-      {/* DataGrid */}
-      <Typography variant="h5" gutterBottom>
-        Users Overview
-      </Typography>
-      <Box sx={{ height: 400, width: '100%', mb: 2 }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          experimentalFeatures={{ newEditingApi: true }}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
-          }}
-          pageSizeOptions={[5]}
-          checkboxSelection
-          disableRowSelectionOnClick
-        />
+        {/* React Leaflet Map */}
+        <Card sx={{ background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none' }}>
+          <CardContent>
+            <Typography variant="h5" gutterBottom sx={{ color: '#3f2211', fontWeight: 600 }}>
+              Location Map
+            </Typography>
+            <Box sx={{ height: 500, width: '100%', borderRadius: '1rem', overflow: 'hidden' }}>
+              <MapContainer center={[14.604253, 120.994314]} zoom={13} style={{ height: '100%', width: '100%' }}>
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                />
+                <Marker position={[14.604253, 120.994314]}>
+                  <Popup>
+                    National University-Manila <br />
+                    551 F Jhocson St, Sampaloc, Manila, 1008 Metro Manila
+                  </Popup>
+                </Marker>
+              </MapContainer>
+            </Box>
+          </CardContent>
+        </Card>
       </Box>
-
-      {/* React Leaflet Map */}
-      <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
-        Location Map
-      </Typography>
-      <Box sx={{ height: 500, width: '100%' }}>
-        <MapContainer center={[14.604253, 120.994314]} zoom={13} style={{ height: '100%', width: '100%' }}>
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          />
-          <Marker position={[14.604253, 120.994314]}>
-            <Popup>
-              National University-Manila <br />
-              551 F Jhocson St, Sampaloc, Manila, 1008 Metro Manila
-            </Popup>
-          </Marker>
-        </MapContainer>
-      </Box>
-    </>
+    </Box>
   );
 }
 
