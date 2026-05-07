@@ -1,5 +1,5 @@
-import Button from '../components/button';
-import aboutMeImg from '../assets/aboutme.jpg';
+import Button from '../../components/button';
+import aboutMeImg from '../../assets/aboutme.jpg';
 
 const AboutPage = () => {
   return (

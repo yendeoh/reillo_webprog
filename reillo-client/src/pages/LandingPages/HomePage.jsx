@@ -1,8 +1,8 @@
-import Button from '../components/button';
-import cookies1 from '../assets/cookies1.jpg';
-import cookies2 from '../assets/cookies2.jpg';
-import cookies3 from '../assets/cookies3.jpg';
-import cookies5 from '../assets/cookies5.png';
+import Button from '../../components/button';
+import cookies1 from '../../assets/cookies1.jpg';
+import cookies2 from '../../assets/cookies2.jpg';
+import cookies3 from '../../assets/cookies3.jpg';
+import cookies5 from '../../assets/cookies5.png';
 
 const HomePage = () => {
   return (
