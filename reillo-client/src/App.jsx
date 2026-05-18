@@ -10,7 +10,7 @@ import NotFoundPage from './pages/NotFoundPage';
 
 import AuthLayout from './Layouts/AuthLayout';
 import SignInPage from './pages/AuthPages/SignInPage';
-import SignUpPage from './pages/AuthPages/SignUpPage';
+import SignupPage from './pages/AuthPages/SignupPage';
 
 import DashLayout from './Layouts/DashLayout';
 import DashboardPage from './pages/DashboardPages/DashboardPage';
@@ -20,7 +20,7 @@ const routes = [
   {
     path: '/',
     element: <Layout />,
-    errorelement: <NotFoundPage />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: '',
@@ -44,10 +44,10 @@ const routes = [
       },
     ],
   },
-    {
-    path: 'Auth/',
+  {
+    path: 'Auth',
     element: <AuthLayout />,
-    errorelement: <NotFoundPage />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: 'signin',
@@ -55,14 +55,23 @@ const routes = [
       },
       {
         path: 'signup',
-        element: <SignUpPage />,
+        element: <SignupPage />,
       },
     ],
+  },
+  // Expose direct top-level signin/signup routes for convenience
+  {
+    path: 'signin',
+    element: <SignInPage />,
+  },
+  {
+    path: 'signup',
+    element: <SignupPage />,
   },
   {
     path: 'dashboard/',
     element: <DashLayout />,
-    errorelement: <NotFoundPage />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         index: true,

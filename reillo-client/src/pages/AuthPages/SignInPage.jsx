@@ -1,10 +1,35 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/button';
+import { loginUser } from '../../../UserService';
 
 const inputClasses = 'auth-input';
 const actionButtonClassName = 'auth-action-btn';
 
 const SignInPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    setError('');
+
+    try {
+      const { data } = await loginUser({ email, password });
+
+      localStorage.setItem('token', data.token || '');
+      localStorage.setItem('firstName', data.firstName || '');
+      localStorage.setItem('type', data.type || '');
+
+      navigate('/dashboard', { state: { firstName: data.firstName, type: data.type } });
+    } catch (err) {
+      const message = err.response?.data?.message || err.message || 'Login failed. Please try again.';
+      setError(message);
+    }
+  };
+
   return (
     <div className="auth-page">
       <div className="auth-page-inner">
@@ -17,7 +42,8 @@ const SignInPage = () => {
             </p>
           </div>
 
-          <form className="auth-form">
+          <form className="auth-form" onSubmit={handleLogin}>
+            {error && <div className="auth-error">{error}</div>}
             <div className="auth-group">
               <label htmlFor="signin-email">Email Address</label>
               <input
@@ -26,6 +52,9 @@ const SignInPage = () => {
                 placeholder="you@example.com"
                 autoComplete="email"
                 className={inputClasses}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
 
@@ -37,6 +66,9 @@ const SignInPage = () => {
                 placeholder="Enter your password"
                 autoComplete="current-password"
                 className={inputClasses}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <p className="auth-caption">
                 Use a strong password with letters, numbers, and symbols.

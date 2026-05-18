@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Alert,
   Box,
@@ -22,6 +22,7 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
+import { createUser, fetchUsers, updateUser } from '../../../UserService.js';
 
 // Assume usersSeed is imported or defined as the JSON string from your assets
 // import usersSeed from '../../assets/users.json?raw';
@@ -38,7 +39,7 @@ const blankForm = {
   gender: '',
   contactNumber: '',
   email: '',
-  role: 'editor',
+  type: 'viewer',
   username: '',
   password: '',
   address: '',
@@ -48,7 +49,7 @@ const blankForm = {
 const labelize = (value) => 
   value ? `${value.charAt(0).toUpperCase()}${value.slice(1)}` : '';
 
-const loadUsers = () => {
+const parseUserSeed = () => {
   try {
     const parsed = JSON.parse(usersSeed);
     return {
@@ -60,11 +61,9 @@ const loadUsers = () => {
         gender: genders.includes(String(user.gender ?? '').trim().toLowerCase())
           ? String(user.gender ?? '').trim().toLowerCase()
           : '',
-        contactNumber: String(user.contactNumber ?? '').trim(),
-        email: String(user.email ?? '').trim().toLowerCase(),
-        role: roles.includes(String(user.role ?? '').trim().toLowerCase())
-          ? String(user.role ?? '').trim().toLowerCase()
-          : 'editor',
+        type: roles.includes(String(user.type ?? user.role ?? '').trim().toLowerCase())
+          ? String(user.type ?? user.role ?? '').trim().toLowerCase()
+          : 'viewer',
         username: String(user.username ?? '').trim().toLowerCase(),
         password: String(user.password ?? ''),
         address: String(user.address ?? '').trim(),
@@ -77,7 +76,7 @@ const loadUsers = () => {
   }
 };
 
-const seed = loadUsers();
+const seed = parseUserSeed();
 
 // --- Main Component ---
 const UsersPage = () => {
@@ -90,6 +89,8 @@ const UsersPage = () => {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState('');
 
   const filteredUsers = users.filter((user) => {
     const query = searchQuery.toLowerCase();
@@ -105,6 +106,31 @@ const UsersPage = () => {
     setForm(blankForm);
     setErrors({});
   };
+
+  const loadUsers = async () => {
+    setLoading(true);
+    setApiError('');
+
+    try {
+      const { data } = await fetchUsers();
+      const loaded = Array.isArray(data?.users) ? data.users : Array.isArray(data) ? data : [];
+      setUsers(loaded.map((user) => ({
+        ...user,
+        type: user.type || user.role || 'viewer',
+        id: user._id || user.id,
+      })));
+    } catch (fetchError) {
+      console.error('Error fetching users:', fetchError);
+      setApiError('Unable to load users from the server. Showing local data.');
+      setUsers(seed.users);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
 
   const openModal = (user) => {
     setModal({ open: true, id: user?.id || null });
@@ -133,7 +159,11 @@ const UsersPage = () => {
     const email = form.email.trim().toLowerCase();
     const username = form.username.trim().toLowerCase();
 
-    ['firstName', 'lastName', 'age', 'gender', 'contactNumber', 'email', 'role', 'username', 'password', 'address'].forEach((key) => {
+    ['firstName', 'lastName', 'age', 'gender', 'contactNumber', 'email', 'type', 'username', 'password', 'address'].forEach((key) => {
+      if (key === 'password' && modal.id) {
+        return;
+      }
+
       if (!String(form[key]).trim()) {
         nextErrors[key] = 'This field is required.';
       }
@@ -154,7 +184,7 @@ const UsersPage = () => {
     return nextErrors;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const nextErrors = validate();
     if (Object.keys(nextErrors).length) {
@@ -162,16 +192,38 @@ const UsersPage = () => {
       return;
     }
 
-    const newUser = { ...form, id: modal.id || Math.max(0, ...users.map(u => u.id)) + 1 };
+    const payload = { ...form };
+    if (modal.id && !payload.password) {
+      delete payload.password;
+    }
 
-    setUsers((prev) => 
-      modal.id ? prev.map((u) => (u.id === modal.id ? newUser : u)) : [...prev, newUser]
-    );
-    closeModal();
+    try {
+      if (modal.id) {
+        await updateUser(modal.id, payload);
+      } else {
+        await createUser(payload);
+      }
+      await loadUsers();
+      closeModal();
+    } catch (saveError) {
+      console.error('Error saving user:', saveError);
+      setApiError('Unable to save user. Please try again.');
+    }
   };
 
-  const toggleStatus = (id) => {
-    setUsers((prev) => prev.map((u) => (u.id === id ? { ...u, isActive: !u.isActive } : u)));
+  const toggleStatus = async (id) => {
+    const user = users.find((u) => u.id === id);
+    if (!user) {
+      return;
+    }
+
+    try {
+      await updateUser(id, { isActive: !user.isActive });
+      await loadUsers();
+    } catch (statusError) {
+      console.error('Error toggling user status:', statusError);
+      setApiError('Unable to update user status. Please try again.');
+    }
   };
 
   const fieldProps = (name, label, extra = {}) => ({
@@ -205,10 +257,10 @@ const UsersPage = () => {
     { field: 'contactNumber', headerName: 'Contact Number', minWidth: 160 },
     { field: 'email', headerName: 'Email', flex: 1.1, minWidth: 220 },
     {
-      field: 'role',
-      headerName: 'Role',
+      field: 'type',
+      headerName: 'Type',
       width: 120,
-      valueGetter: (p, row) => labelize(row.role),
+      valueGetter: (p, row) => labelize(row.type),
     },
     {
       field: 'isActive',
@@ -283,6 +335,7 @@ const UsersPage = () => {
           />
         </Box>
 
+        {apiError && <Alert severity="error" sx={{ mb: 2 }}>{apiError}</Alert>}
         {seed.error && <Alert severity="error" sx={{ mb: 2 }}>{seed.error}</Alert>}
 
         <Paper sx={{ p: { xs: 1.5, sm: 2 }, minWidth: 0, overflow: 'hidden', background: '#f0e6d8', border: 'none', borderRadius: '1.75rem', boxShadow: 'none' }}>
@@ -291,6 +344,8 @@ const UsersPage = () => {
             <DataGrid
               rows={filteredUsers}
               columns={columns}
+              getRowId={(row) => row._id || row.id}
+              loading={loading}
               disableRowSelectionOnClick
               pageSizeOptions={[5, 10]}
               initialState={{ pagination: { paginationModel: { pageSize: 5, page: 0 } } }}
@@ -323,7 +378,7 @@ const UsersPage = () => {
                 <TextField {...fieldProps('email', 'Email Address', { type: 'email' })} />
               </Stack>
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-                <TextField {...fieldProps('role', 'Role', { select: true })}>
+                <TextField {...fieldProps('type', 'Type', { select: true })}>
                   {roles.map((r) => <MenuItem key={r} value={r}>{labelize(r)}</MenuItem>)}
                 </TextField>
                 <TextField {...fieldProps('username', 'Username')} />
