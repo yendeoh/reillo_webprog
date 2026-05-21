@@ -28,12 +28,19 @@ import ArticleIcon from "@mui/icons-material/Article";
 
 const drawerWidth = 240;
 
-const dashboardNavItems = [
+// Base dashboard navigation; visibility filtered per user type inside the component
+const baseDashboardNavItems = [
   {
     label: "Dashboard",
     title: "Dashboard",
     to: "/dashboard",
     icon: DashboardIcon,
+  },
+  {
+    label: "Articles",
+    title: "Articles",
+    to: "/dashboard/articles",
+    icon: ArticleIcon,
   },
   {
     label: "Reports",
@@ -46,6 +53,7 @@ const dashboardNavItems = [
     title: "Users",
     to: "/dashboard/userspage",
     icon: PeopleIcon,
+    roles: ["admin", "editor"], // only visible to admin and editor
   },
 ];
 
@@ -161,15 +169,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const getPageTitle = (pathname) =>
-  dashboardNavItems.find(({ to }) => to === pathname)?.title ?? "Welcome";
+// page title will be computed inside the component once `dashboardNavItems` is available
 
 const DashLayout = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  const pageTitle = getPageTitle(location.pathname);
+  // pageTitle will be computed after dashboardNavItems is created
   const navigate = useNavigate();
+
+  const currentUserType = typeof window !== 'undefined' ? (localStorage.getItem('type') || 'viewer') : 'viewer';
+
+  const dashboardNavItems = baseDashboardNavItems.filter(item => {
+    if (!item.roles) return true;
+    return item.roles.includes(currentUserType);
+  });
+
+  const pageTitle = dashboardNavItems.find(({ to }) => to === location.pathname)?.title ?? "Welcome";
 
   const handleDrawerOpen = () => {
     setOpen(true);

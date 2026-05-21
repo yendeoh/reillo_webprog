@@ -4,7 +4,7 @@ import cookies5 from '../assets/cookies5.png';
 const AuthLayout = () => {
   return (
     <section className="auth-layout">
-      <div className="grid min-h-screen w-full lg:grid-cols-[1fr_0.95fr]">
+      <div className="auth-layout-grid">
         <div className="auth-aside">
           <div className="auth-aside-card">
             <img src={cookies5} alt="Fresh cookies" className="auth-aside-image" />

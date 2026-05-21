@@ -1,10 +1,29 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/button';
+import { createUser } from '../../../UserService.js';
 
 const inputClasses = 'auth-input';
 const actionButtonClassName = 'auth-action-btn';
 
-const SignUpPage = () => {
+const SignupPage = () => {
+  const [form, setForm] = useState({ firstName: '', lastName: '', email: '', password: ''});
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleChange = (e) => setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    try {
+      await createUser(form);
+      navigate('/signin');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Sign up failed');
+    }
+  };
+
   return (
     <div className="auth-page">
       <div className="auth-page-inner">
@@ -17,26 +36,35 @@ const SignUpPage = () => {
             </p>
           </div>
 
-          <form className="auth-form">
+          <form className="auth-form" onSubmit={handleSubmit}>
+            {error && <div className="auth-error">{error}</div>}
             <div className="auth-row">
               <div className="auth-group">
                 <label htmlFor="first-name">First Name</label>
                 <input
                   id="first-name"
+                  name="firstName"
                   type="text"
                   placeholder="First name"
                   autoComplete="given-name"
                   className={inputClasses}
+                  value={form.firstName}
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="auth-group">
                 <label htmlFor="last-name">Last Name</label>
                 <input
                   id="last-name"
+                  name="lastName"
                   type="text"
                   placeholder="Last name"
                   autoComplete="family-name"
                   className={inputClasses}
+                  value={form.lastName}
+                  onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -45,10 +73,14 @@ const SignUpPage = () => {
               <label htmlFor="signup-email">Email</label>
               <input
                 id="signup-email"
+                name="email"
                 type="email"
                 placeholder="you@example.com"
                 autoComplete="email"
                 className={inputClasses}
+                value={form.email}
+                onChange={handleChange}
+                required
               />
             </div>
 
@@ -56,10 +88,14 @@ const SignUpPage = () => {
               <label htmlFor="signup-password">Password</label>
               <input
                 id="signup-password"
+                name="password"
                 type="password"
                 placeholder="Create a secure password"
                 autoComplete="new-password"
                 className={inputClasses}
+                value={form.password}
+                onChange={handleChange}
+                required
               />
               <p className="auth-caption">
                 8+ characters, including letters, numbers, and symbols.
@@ -94,4 +130,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignupPage;

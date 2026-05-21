@@ -16,6 +16,7 @@ import DashLayout from './Layouts/DashLayout';
 import DashboardPage from './pages/DashboardPages/DashboardPage';
 import ReportsPage from './pages/DashboardPages/ReportsPage';
 import UsersPage from './pages/DashboardPages/UsersPage';
+import DashArticleListPage from './pages/DashboardPages/DashArticleListPage';
 const routes = [
   {
     path: '/',
@@ -42,49 +43,48 @@ const routes = [
         path: 'page-not-found',
         element: <NotFoundPage />,
       },
-    ],
-  },
-  {
-    path: 'Auth',
-    element: <AuthLayout />,
-    errorElement: <NotFoundPage />,
-    children: [
       {
         path: 'signin',
-        element: <SignInPage />,
+        element: <AuthLayout />,
+        children: [
+          {
+            index: true,
+            element: <SignInPage />,
+          },
+        ],
       },
       {
         path: 'signup',
-        element: <SignupPage />,
+        element: <AuthLayout />,
+        children: [
+          {
+            index: true,
+            element: <SignupPage />,
+          },
+        ],
       },
-    ],
-  },
-  // Expose direct top-level signin/signup routes for convenience
-  {
-    path: 'signin',
-    element: <SignInPage />,
-  },
-  {
-    path: 'signup',
-    element: <SignupPage />,
-  },
-  {
-    path: 'dashboard/',
-    element: <DashLayout />,
-    errorElement: <NotFoundPage />,
-    children: [
       {
-        index: true,
-        element: <DashboardPage />,
+        path: 'dashboard',
+        element: <DashLayout />,
+        children: [
+          {
+            index: true,
+            element: <DashboardPage />,
+          },
+          {
+            path: 'reportspage',
+            element: <ReportsPage />,
+          },
+          {
+            path: 'articles',
+            element: <DashArticleListPage />,
+          },
+          {
+            path: 'userspage',
+            element: <UsersPage />,
+          },
+        ],
       },
-            {
-        path: 'reportspage',
-        element: <ReportsPage />,
-      },
-            {
-        path: 'userspage',
-        element: <UsersPage />,
-      }
     ],
   },
 ];

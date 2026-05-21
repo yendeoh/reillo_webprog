@@ -82,6 +82,14 @@ const seed = parseUserSeed();
 const UsersPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const currentUserType = typeof window !== 'undefined' ? (localStorage.getItem('type') || 'viewer') : 'viewer';
+  if (currentUserType === 'viewer') {
+    return (
+      <Box sx={{ p: 4 }}>
+        <Alert severity="warning">Access denied: viewers cannot access the Users page.</Alert>
+      </Box>
+    );
+  }
   
   const [users, setUsers] = useState(seed.users);
   const [modal, setModal] = useState({ open: false, id: null });
@@ -159,7 +167,7 @@ const UsersPage = () => {
     const email = form.email.trim().toLowerCase();
     const username = form.username.trim().toLowerCase();
 
-    ['firstName', 'lastName', 'age', 'gender', 'contactNumber', 'email', 'type', 'username', 'password', 'address'].forEach((key) => {
+    ['firstName', 'lastName', 'email', 'type', 'password'].forEach((key) => {
       if (key === 'password' && modal.id) {
         return;
       }

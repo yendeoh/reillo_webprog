@@ -23,7 +23,7 @@ const SignInPage = () => {
       localStorage.setItem('firstName', data.firstName || '');
       localStorage.setItem('type', data.type || '');
 
-      navigate('/dashboard', { state: { firstName: data.firstName, type: data.type } });
+      navigate('/', { replace: true });
     } catch (err) {
       const message = err.response?.data?.message || err.message || 'Login failed. Please try again.';
       setError(message);
