@@ -83,10 +83,10 @@ const UsersPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const currentUserType = typeof window !== 'undefined' ? (localStorage.getItem('type') || 'viewer') : 'viewer';
-  if (currentUserType === 'viewer') {
+  if (currentUserType !== 'admin') {
     return (
       <Box sx={{ p: 4 }}>
-        <Alert severity="warning">Access denied: viewers cannot access the Users page.</Alert>
+        <Alert severity="warning">Access denied: only admin users can access the Users page.</Alert>
       </Box>
     );
   }

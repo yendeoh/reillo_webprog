@@ -18,10 +18,16 @@ const SignInPage = () => {
 
     try {
       const { data } = await loginUser({ email, password });
+      const responseType = data.type || data.role || '';
+
+      if (responseType === 'viewer') {
+        setError('Viewer accounts are not permitted to log in.');
+        return;
+      }
 
       localStorage.setItem('token', data.token || '');
       localStorage.setItem('firstName', data.firstName || '');
-      localStorage.setItem('type', data.type || '');
+      localStorage.setItem('type', responseType);
 
       navigate('/', { replace: true });
     } catch (err) {

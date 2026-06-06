@@ -1,10 +1,12 @@
 import { useParams } from 'react-router-dom';
 import Button from '../../components/button.jsx';
-import articles from '../../assets/article-content.js';
+import { useArticles } from '../../contexts/ArticleContext.jsx';
+import cookieIcon from '../../assets/cookies5.png';
 
 function ArticlePage() {
+  const { articles } = useArticles();
   const { name } = useParams();
-  const article = articles.find(article => article.name === name);
+  const article = articles.find((article) => article.name === name && article.published !== false);
 
   if (!article) {
     return (
@@ -23,9 +25,12 @@ function ArticlePage() {
     <div className="flex w-full flex-col gap-6">
       <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:py-8 lg:px-8">
         <div className="mx-auto max-w-3xl">
-          <div className="mb-4">
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">{article.title}</p>
-            <h1 className="text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl">{article.title}</h1>
+          <div className="article-page-header mb-4">
+            <img src={cookieIcon} alt="Cookie icon" className="article-page-cookie-icon" />
+            <div>
+              <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">{article.title}</p>
+              <h1 className="text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl">{article.title}</h1>
+            </div>
           </div>
           <p className="mt-2 text-sm text-zinc-700">{article.description}</p>
         </div>
@@ -33,7 +38,15 @@ function ArticlePage() {
 
       <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:py-8 lg:px-8">
         <div className="mx-auto max-w-3xl">
-          <div className="flex aspect-[3] items-center justify-center rounded-[1.25rem] border-2 border-zinc-900 bg-zinc-200" />
+          {article.imageUrl ? (
+            <div className="article-page-image-wrapper">
+              <img src={article.imageUrl} alt={article.title} className="article-page-image" />
+            </div>
+          ) : (
+            <div className="article-page-image-wrapper article-page-image-placeholder">
+              No image provided for this article
+            </div>
+          )}
 
           <div className="mt-8 space-y-4 text-base leading-7 text-zinc-700 whitespace-pre-wrap">
             {article.content.map((paragraph, index) => (

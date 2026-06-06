@@ -87,30 +87,32 @@ const ReportsPage = () => {
         <title>Print Report</title>
         ${headMarkup}
         <style>
-          @page { size: A4; margin: 16mm; }
-          * { box-sizing: border-box; }
-          body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #fff;
-            color: #1f2937;
+          @page { size: A4 portrait; margin: 16mm; }
+          *, *::before, *::after { box-sizing: border-box; }
+          html, body { margin: 0; padding: 0; width: 100%; background: #fff; color: #111827; }
+          body { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.45; }
+          .report-shell { width: 100%; padding: 20px; }
+          .report-header { margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #d1d5db; }
+          .report-header h1 { margin: 0 0 8px; font-size: 28px; font-weight: 700; }
+          .report-header p { margin: 0; font-size: 14px; color: #52525b; }
+          .report-content { display: block; width: 100%; }
+          .report-content > * { page-break-inside: avoid; break-inside: avoid; margin-bottom: 20px; }
+          .report-content .MuiCard-root, .report-card { box-shadow: none !important; border: 1px solid #e5e7eb; border-radius: 1rem; background: #fff; }
+          .report-content .MuiCardContent-root, .report-card .MuiCardContent-root { padding: 20px !important; }
+          .report-content .MuiCard-root h6, .report-content .MuiCard-root p, .report-card h6, .report-card p { color: #111827 !important; }
+          .print-hidden, button, .MuiButton-root, .MuiDataGrid-toolbarContainer, .MuiDataGrid-footerContainer, .MuiDataGrid-columnSeparator, .MuiDataGrid-virtualScroller, .MuiDataGrid-selectedRowCount, .MuiDataGrid-cellCheckbox, .MuiDataGrid-columnHeaderCheckbox, .MuiCheckbox-root { display: none !important; }
+          .MuiDataGrid-root { border: 1px solid #d1d5db !important; }
+          .MuiDataGrid-columnHeaders, .MuiDataGrid-viewport, .MuiDataGrid-window, .MuiDataGrid-virtualScrollerRenderZone { display: table-row-group !important; }
+          .MuiDataGrid-cell, .MuiDataGrid-columnHeaderTitle, .MuiDataGrid-columnHeader, .MuiDataGrid-row { page-break-inside: avoid; }
+          .MuiDataGrid-root .MuiDataGrid-cell { overflow: visible !important; white-space: normal !important; }
+          .MuiTypography-root, .MuiBox-root { color: #111827 !important; }
+          svg { max-width: 100% !important; height: auto !important; }
+          img { max-width: 100% !important; height: auto !important; }
+          @media print {
+            body { background: #fff; }
+            .report-shell { padding: 0; }
+            .report-card, .report-header { page-break-inside: avoid; }
           }
-          .report-shell { padding: 20px; }
-          .report-header {
-            margin-bottom: 24px;
-            padding-bottom: 14px;
-            border-bottom: 1px solid #d1d5db;
-          }
-          .report-header h1 { margin: 0 0 6px; font-size: 28px; font-weight: 700; }
-          .report-header p { margin: 0; font-size: 14px; color: #6b7280; line-height: 1.5; }
-          .report-content .MuiCard-root {
-            box-shadow: none !important;
-            border: 1px solid #e5e7eb;
-            break-inside: avoid;
-            page-break-inside: avoid;
-          }
-          .report-content .MuiCardContent-root { padding: 20px; }
-          .report-content svg { max-width: 100%; }
         </style>
       </head>
       <body class="report-shell">
@@ -120,7 +122,7 @@ const ReportsPage = () => {
           <p>Prepared on ${exportedAt}</p>
         </main>
         <section class="report-content">
-          ${printContent.outerHTML}
+          ${printContent.innerHTML}
         </section>
       </body>
       </html>
