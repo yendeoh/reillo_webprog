@@ -33,27 +33,27 @@ const baseDashboardNavItems = [
   {
     label: "Dashboard",
     title: "Dashboard",
-    to: "/dashboard",
+    to: ".",
     icon: DashboardIcon,
   },
   {
     label: "Articles",
     title: "Articles",
-    to: "/dashboard/articles",
+    to: "articles",
     icon: ArticleIcon,
   },
   {
     label: "Reports",
     title: "Reports",
-    to: "/dashboard/reportspage",
+    to: "reportspage",
     icon: AssessmentIcon,
   },
   {
     label: "Users",
     title: "Users",
-    to: "/dashboard/userspage",
+    to: "userspage",
     icon: PeopleIcon,
-    roles: ["admin", "editor"], // only visible to admin and editor
+    roles: ["admin"], // only visible to admin
   },
 ];
 

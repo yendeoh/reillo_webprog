@@ -1,8 +1,10 @@
 import Button from '../../components/button.jsx';
 import ArticleList from '../../components/Articlelist.jsx';
-import articles from '../../assets/article-content.js';
+import { useArticles } from '../../contexts/ArticleContext.jsx';
 
 const ArticleListPage = () => {
+  const { articles } = useArticles();
+  const visibleArticles = articles.filter((article) => article.published !== false);
   return (
     <div className="flex w-full flex-col gap-6">
       <section className="border-y-2 border-zinc-900 bg-zinc-50 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
@@ -31,7 +33,7 @@ const ArticleListPage = () => {
           </h2>
         </div>
 
-        <ArticleList articles={articles} />
+        <ArticleList articles={visibleArticles} />
       </section>
     </div>
   );

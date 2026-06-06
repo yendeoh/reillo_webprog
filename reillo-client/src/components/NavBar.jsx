@@ -5,6 +5,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
   const firstName = typeof window !== 'undefined' ? localStorage.getItem('firstName') : '';
+  const userType = typeof window !== 'undefined' ? (localStorage.getItem('type') || '') : '';
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -33,9 +34,11 @@ const NavBar = () => {
           {token ? (
             <>
               <span className="navbar-welcome">Hi, {firstName || 'User'}</span>
-              <Link to="/dashboard" className="navbar-auth-link navbar-auth-dashboard">
-                Dashboard
-              </Link>
+              {['admin'].includes(userType) && (
+                <Link to="/dashboard" className="navbar-auth-link navbar-auth-dashboard">
+                  Dashboard
+                </Link>
+              )}
               <button type="button" className="navbar-auth-link navbar-auth-logout" onClick={handleLogout}>
                 Logout
               </button>

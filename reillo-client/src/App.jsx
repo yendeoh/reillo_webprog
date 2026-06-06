@@ -17,6 +17,7 @@ import DashboardPage from './pages/DashboardPages/DashboardPage';
 import ReportsPage from './pages/DashboardPages/ReportsPage';
 import UsersPage from './pages/DashboardPages/UsersPage';
 import DashArticleListPage from './pages/DashboardPages/DashArticleListPage';
+import { ArticleProvider } from './contexts/ArticleContext.jsx';
 const routes = [
   {
     path: '/',
@@ -93,9 +94,9 @@ const router = createBrowserRouter(routes);
 
 function App() {
   return (
-    <>
+    <ArticleProvider>
       <RouterProvider router={router} />
-    </>
+    </ArticleProvider>
   );
 }
 
